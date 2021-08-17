@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import sys
 import re
 import argparse
@@ -46,7 +45,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="the website's url", type=str)
     parser.add_argument("-t",
-                        "--tags", help="tags that is read from the website, eg. --tag p, h1, h2", default=["p"], nargs="*")
+                        "--tags", help="tags that is read from the website, eg. --tag p h1 h2", default=["p"], nargs="*")
     parser.add_argument("-m",
                         "--method", help="method used for summarizing (naive, textrank, seq2seq)", default="naive", choices=["naive", "textrank", "seq2seq"])
 

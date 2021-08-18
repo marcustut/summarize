@@ -11,7 +11,8 @@ This file is to preserve a list of references of various resources used to build
 
 ### Research Papers
 
-1. [Sequence to Sequence Learning with Neural Networks (by Google Researchers)](https://arxiv.org/pdf/1409.3215.pdf)
+1. [Sequence to Sequence Learning with Neural Networks (by Google Researchers in 2014)](https://arxiv.org/pdf/1409.3215.pdf)
+2. [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (by Google Researchers in 2019)](https://arxiv.org/pdf/1810.04805.pdf)
 
 ### Blog Posts
 

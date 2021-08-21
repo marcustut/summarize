@@ -13,6 +13,7 @@ This file is to preserve a list of references of various resources used to build
 
 1. [Sequence to Sequence Learning with Neural Networks (by Google Researchers in 2014)](https://arxiv.org/pdf/1409.3215.pdf)
 2. [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (by Google Researchers in 2019)](https://arxiv.org/pdf/1810.04805.pdf)
+3. [Attention Is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
 
 ### Blog Posts
 
@@ -23,6 +24,7 @@ This file is to preserve a list of references of various resources used to build
 
 1. [How to make a Text Summarizer - Intro to Deep Learning #10 (by Siraj Raval)](https://www.youtube.com/watch?v=ogrJaOIuBx4)
 2. [Illustrated Guide to LSTM's and GRU's: A step by step explanation](https://www.youtube.com/watch?v=8HyCNIVRbSU)
+3. [LSTM is dead. Long Live Transformers!](https://www.youtube.com/watch?v=S27pHKBEp30)
 
 ### Tools
 

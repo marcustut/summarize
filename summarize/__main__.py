@@ -48,6 +48,7 @@ def main():
                         "--tags", help="tags that is read from the website, eg. --tag p h1 h2", default=["p"], nargs="*")
     parser.add_argument("-m",
                         "--method", help="method used for summarizing (naive, textrank, seq2seq)", default="naive", choices=["naive", "textrank", "seq2seq"])
+    # Add an argument for specifying 'short, medium, long'
 
     # Parse the arguments
     args = parser.parse_args()

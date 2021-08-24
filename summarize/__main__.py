@@ -1,7 +1,9 @@
 import sys
 import re
 import argparse
+
 from summarize.ai import naive
+from summarize.ai import textrank
 from summarize.scraper import parser
 from typing import List
 
@@ -33,6 +35,8 @@ def summarize_url(url: str, tags: List[str] = ['p'], method: str = 'naive'):
     # Summarize the content
     if method == "naive":
         summary = naive.summarize(content)
+    elif method == "textrank":
+        summary = textrank.summarize(content, 0.05)
 
     # Print the summary to stdout
     print(summary)
@@ -45,10 +49,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="the website's url", type=str)
     parser.add_argument("-t",
-                        "--tags", help="tags that is read from the website, eg. --tag p h1 h2", default=["p"], nargs="*")
+                        "--tags", help="tags that is read from the website, eg. --tag p h1 h2",
+                        default=["p"], nargs="*")
     parser.add_argument("-m",
-                        "--method", help="method used for summarizing (naive, textrank, seq2seq)", default="naive", choices=["naive", "textrank", "seq2seq"])
-    # Add an argument for specifying 'short, medium, long'
+                        "--method", help="method used for summarizing (naive, textrank, seq2seq)",
+                        default="naive", choices=["naive", "textrank", "seq2seq"])
+    parser.add_argument("-l", "--length", help="length of the summarized text (short, medium, long)",
+                        default="short", choices=['short', 'medium', 'long'])
 
     # Parse the arguments
     args = parser.parse_args()

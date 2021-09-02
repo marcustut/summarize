@@ -4,8 +4,8 @@ from transformers import Pipeline
 
 
 class Summarizer(ABC):
-    def __init__(self):
-        pass
+    def __init__(self, max_chunk: int):
+        self.max_chunk = max_chunk
 
     @abstractmethod
     def create_model():

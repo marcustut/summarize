@@ -28,8 +28,7 @@ def parse_html_to_paragraphs(url: str, tags: List[str]) -> str:
 
 # The content variable should be parsed into paragraphs
 # Used by BART
-def chunk_text(content: str) -> List[str]:
-    max_chunk = 500
+def chunk_text(content: str, max_chunk: int) -> List[str]:
     current_chunk = 0
     chunks = []
 

@@ -3,7 +3,10 @@ import re
 import argparse
 
 from summarize.ai import textrank
-from summarize.ai import naive, Bart, Pegasus, T5
+from summarize.ai import naive
+from summarize.ai.bart import Bart
+from summarize.ai.pegasus import Pegasus
+from summarize.ai.t5 import T5
 from summarize.scraper import parser
 from typing import List
 

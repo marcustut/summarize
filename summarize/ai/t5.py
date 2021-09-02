@@ -1,5 +1,5 @@
 from transformers import pipeline, Pipeline
-from summarize.ai import Summarizer
+from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser
 
 
@@ -12,8 +12,8 @@ class T5(Summarizer):
         return summarizer
 
     # The content variable should be chunked
-    def summarize(content: str, min_length: int, max_length: int) -> str:
+    def summarize(self, content: str, min_length: int, max_length: int) -> str:
         # Load T5 model using pipeline
         text = parser.chunk_text(content)
-        summarizer = super().create_model()
+        summarizer = self.create_model()
         super().summarize(summarizer, text, min_length, max_length)

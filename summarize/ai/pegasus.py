@@ -4,11 +4,11 @@ from transformers import (
     pipeline,
     Pipeline,
 )
-from summarize.utilities import util
-from summarize.ai import Summarizer
+from summarize.utilities import append
+from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser
 
-from summarize.utilities import util
+from summarize.utilities import append
 
 
 class Pegasus(Summarizer):

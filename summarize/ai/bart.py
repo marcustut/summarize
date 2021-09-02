@@ -1,5 +1,5 @@
 from transformers import pipeline, Pipeline
-from summarize.ai import Summarizer
+from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser
 
 

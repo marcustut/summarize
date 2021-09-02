@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from summarize.utilities import util
+from summarize.utilities import append
 from transformers import Pipeline
 
 
@@ -15,4 +15,4 @@ class Summarizer(ABC):
         summarizer: Pipeline, text: str, min_length: int, max_length: int
     ) -> str:
         summary = summarizer(text, min_length=min_length, max_length=max_length)
-        return util.append(summary)
+        return append(summary)

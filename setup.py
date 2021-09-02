@@ -7,5 +7,12 @@ setup(
     author="Marcus Lee & Liana Ling",
     author_email="marcustutorial@hotmail.com & lianalingliya@gmail.com",
     packages=find_packages(),
-    install_requires=["requests", "bs4", "nltk", "transformers", "pandas"],
+    install_requires=[
+        "requests",
+        "bs4",
+        "nltk",
+        "transformers",
+        "pandas",
+        "stanfordnlp",
+    ],
 )

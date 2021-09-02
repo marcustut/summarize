@@ -5,10 +5,10 @@ from summarize.scraper import parser
 
 class Bart(Summarizer):
     def __init__(self):
-        super().__init__(self, max_chunk=500)
+        super().__init__(500)
 
     # Overrides abstract method
-    def create_model() -> Pipeline:
+    def create_model(self) -> Pipeline:
         summarizer = pipeline("summarization")
         return summarizer
 

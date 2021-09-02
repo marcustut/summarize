@@ -12,7 +12,7 @@ class Summarizer(ABC):
         pass
 
     def summarize(
-        summarizer: Pipeline, text: str, min_length: int, max_length: int
+        self, summarizer: Pipeline, text: str, min_length: int, max_length: int
     ) -> str:
         summary = summarizer(text, min_length=min_length, max_length=max_length)
         return append(summary)

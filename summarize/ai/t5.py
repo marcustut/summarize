@@ -1,16 +1,15 @@
-from distutils import util
 from transformers import pipeline, Pipeline
 from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser
-from summarize.utilities import util
+from summarize.utilities import capitalise_propn
 
 
 class T5(Summarizer):
     def __init__(self):
-        super().__init__(self, max_chunk=500)
+        super().__init__(500)
 
     # Overrides abstract method
-    def create_model() -> Pipeline:
+    def create_model(self) -> Pipeline:
         summarizer = pipeline(
             "summarization", model="t5-base", tokenizer="t5-base", framework="pt"
         )
@@ -22,4 +21,4 @@ class T5(Summarizer):
         text = parser.chunk_text(content, self.max_chunk)
         summarizer = self.create_model()
         summary = super().summarize(summarizer, text, min_length, max_length)
-        return util.capitalise_propn(summary)
+        return capitalise_propn(summary)

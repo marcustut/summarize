@@ -4,19 +4,16 @@ from transformers import (
     pipeline,
     Pipeline,
 )
-from summarize.utilities import append
 from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser
-
-from summarize.utilities import append
 
 
 class Pegasus(Summarizer):
     def __init__(self):
-        super().__init__(self, max_chunk=250)
+        super().__init__(250)
 
     # Overrides abstract method
-    def create_model() -> Pipeline:
+    def create_model(self) -> Pipeline:
         model_name = "google/pegasus-xsum"
         # torch_device = "cuda"
         tokenizer = PegasusTokenizer.from_pretrained(model_name)

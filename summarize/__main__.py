@@ -29,7 +29,7 @@ def _is_valid_url(url: str) -> bool:
 def set_max_length(length: str) -> int:
     max_dict = {"short": 200, "medium": 600, "long": 1000}
 
-    return max_dict.get("length")
+    return max_dict.get(length)
 
 
 def summarize_url(

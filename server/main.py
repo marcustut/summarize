@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
-from summarize.ai import naive
+from typing import Optional
 
-METHODS = ["naive", "textrank", "bart", "pegasus", "t5"]
+from summarize.scraper import parser
+from model.summarize import SummarizeTypes, SummarizeMethods
+from internal.logic import SummarizeMethodNotSupported, handleSummarize
 
 app = FastAPI()
 
@@ -11,12 +13,48 @@ async def root():
     return {"message": "ashdjkashldk"}
 
 
-@app.get("/summarize/{method}")
-async def summarize_text(method: str, text: str):
+@app.get("/summarize/{type}/{method}")
+async def summarize(
+    type: str,
+    method: str,
+    url: Optional[str] = None,
+    text: Optional[str] = None,
+    tag: Optional[str] = "p",
+):
+    # Handle type that is not allowed
+    try:
+        summarizeType = SummarizeTypes(type)
+    except ValueError:
+        raise HTTPException(status_code=404, detail=f"Type {type} is not allowed.")
+
     # Handle method that is not allowed
-    if method not in METHODS:
+    try:
+        summarizeMethod = SummarizeMethods(method)
+    except ValueError:
         raise HTTPException(status_code=404, detail=f"Method {method} is not allowed.")
 
-    summary = naive.summarize(text)
+    # Handle summarizing
+    if summarizeType == SummarizeTypes.Text:
+        if text == None:
+            raise HTTPException(status_code=404, detail="'text' cannot be empty.")
 
-    return {"method": method, "summary": summary}
+        try:
+            summary = handleSummarize(summarizeMethod, text)
+            return {"summary": summary, "length": len(summary.split(" "))}
+        except SummarizeMethodNotSupported as err:
+            raise HTTPException(status_code=404, detail=err)
+    elif summarizeType == SummarizeTypes.Url:
+        if url == None:
+            raise HTTPException(status_code=404, detail="'url' cannot be empty")
+
+        content = parser.parse_html_to_paragraphs(url, [tag])
+
+        try:
+            summary = handleSummarize(summarizeMethod, content)
+            return {"summary": summary, "length": len(summary.split(" "))}
+        except SummarizeMethodNotSupported as err:
+            raise HTTPException(status_code=404, detail=err)
+    else:
+        raise HTTPException(
+            status_code=404, detail=f"Type {type} is currently not supported."
+        )

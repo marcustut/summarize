@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 
 from summarize.scraper import parser
@@ -7,10 +8,15 @@ from internal.logic import SummarizeMethodNotSupported, handleSummarize
 
 app = FastAPI()
 
+origins = ["http://localhost:3333"]
 
-@app.get("/")
-async def root():
-    return {"message": "ashdjkashldk"}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/summarize/{type}/{method}")

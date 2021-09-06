@@ -7,9 +7,12 @@ class SummarizeMethodNotSupported(Exception):
 
 
 def handleSummarize(method: SummarizeMethods, text: str) -> str:
+
     if method == SummarizeMethods.Naive:
         return naive.summarize(text)
+
     elif method == SummarizeMethods.Textrank:
-        return textrank.summarize(text, percentage=0.05)
+        return textrank.summarize(text, percentage=0.5)
+
     else:
         raise SummarizeMethodNotSupported(f"Method {method} is not supported")

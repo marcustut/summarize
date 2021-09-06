@@ -1,21 +1,31 @@
 <script setup lang="ts">
 import { useFetch } from "@vueuse/core";
+import type {
+  SummarizeMethod,
+  SummarizeResponse,
+  SummarizeType,
+} from "~/types";
 
-const URL = "http://127.0.0.1:8000/summarize/text/textrank?text=";
+const BASE_URL = "http://127.0.0.1:8000/summarize";
 
+const method = ref<SummarizeMethod>("naive");
+const type = ref<SummarizeType>("text");
 const text = ref("");
-const url = ref(`${URL}`);
+const requestUrl = ref("");
 
-const { isFetching, execute, error, data } = useFetch<string>(url, {
-  immediate: false,
-})
+const { isFetching, execute, error, data } = useFetch<SummarizeResponse>(
+  requestUrl,
+  {
+    immediate: false,
+  }
+)
   .get()
   .json();
 
 watch(error, () => error.value && alert(error.value));
 
 const handleSummarize = () => {
-  url.value = URL + text.value;
+  requestUrl.value = `${BASE_URL}/${type.value}/${method.value}?text=${text.value}`;
   execute();
 };
 
@@ -23,14 +33,14 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div>
+  <div overflow="x-hidden">
     <p class="text-4xl">
-      <carbon-campsite class="inline-block" />
+      <carbon-document class="inline-block" />
     </p>
     <p>
       <a
         rel="noreferrer"
-        href="https://github.com/antfu/vitesse"
+        href="https://github.com/marcustut/summarize"
         target="_blank"
       >
         Summarize
@@ -42,22 +52,42 @@ const { t } = useI18n();
 
     <div class="py-4" />
 
-    <input
+    <textarea
       id="input"
       v-model="text"
-      :placeholder="t('intro.whats-your-name')"
-      :aria-label="t('intro.whats-your-name')"
+      :placeholder="t('home.enter-text-here')"
+      :aria-label="t('home.enter-text-here')"
       type="text"
       autocomplete="false"
       @keydown.enter="handleSummarize"
       p="x-4 y-2"
-      w="250px"
-      text="center"
+      w="400px"
+      max-w="80vw"
+      h="200px"
       bg="transparent"
+      resize="~"
       border="~ rounded gray-200 dark:gray-700"
       outline="none active:none"
     />
-    <label class="hidden" for="input">{{ t("intro.whats-your-name") }}</label>
+    <label class="hidden" for="input">{{ t("home.enter-text-here") }}</label>
+
+    <select
+      name="method"
+      id="method"
+      v-model="method"
+      m="x-auto t-2"
+      w="400px"
+      display="block"
+      border="~ rounded"
+      bg="transparent"
+      outline="active:none"
+    >
+      <option value="naive">Naive</option>
+      <option value="textrank">Textrank</option>
+      <option value="bart" disabled>Bart</option>
+      <option value="t5" disabled>T5</option>
+      <option value="pegasus" disabled>Pegasus</option>
+    </select>
 
     <div>
       <button
@@ -65,7 +95,7 @@ const { t } = useI18n();
         :disabled="!text"
         @click="handleSummarize"
       >
-        {{ t("button.go") }}
+        {{ t("button.summarize") }}
       </button>
     </div>
 

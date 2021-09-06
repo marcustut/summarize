@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
-import { isDark, toggleDark } from "~/logic";
+import { useThemeStore } from "~/stores";
+
+const themeStore = useThemeStore();
+const { theme } = storeToRefs(themeStore);
+
+const isDark = computed(() => theme.value === "dark");
 
 const { t, availableLocales, locale } = useI18n();
 
@@ -20,7 +26,7 @@ const toggleLocales = () => {
     <button
       class="icon-btn mx-2 !outline-none"
       :title="t('button.toggle_dark')"
-      @click="toggleDark()"
+      @click="themeStore.setTheme(isDark ? 'light' : 'dark')"
     >
       <carbon-moon v-if="isDark" />
       <carbon-sun v-else />

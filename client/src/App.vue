@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useHead } from "@vueuse/head";
+import Provider from "~/components/Provider.vue";
+import Viewer from "~/components/Viewer.vue";
 
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
@@ -11,5 +13,7 @@ useHead({
 </script>
 
 <template>
-  <router-view />
+  <provider>
+    <viewer />
+  </provider>
 </template>

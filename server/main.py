@@ -1,12 +1,24 @@
+from os import environ
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from functools import lru_cache
 from typing import Optional
 
+from fastapi.params import Depends
 from summarize.scraper import parser
+
 from model.summarize import SummarizeTypes, SummarizeMethods
 from internal.logic import SummarizeMethodNotSupported, handleSummarize
+from internal.config import Settings
 
 app = FastAPI()
+
+
+@lru_cache()
+def get_settings():
+    return Settings(_env_file="./.env")
+
 
 origins = ["http://localhost:3333"]
 
@@ -27,6 +39,7 @@ async def summarize(
     text: Optional[str] = None,
     percentage: Optional[int] = 0.5,
     tag: Optional[str] = "p",
+    settings: Settings = Depends(get_settings),
 ):
     # Handle type that is not allowed
     try:
@@ -39,6 +52,10 @@ async def summarize(
         summarizeMethod = SummarizeMethods(method)
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Method {method} is not allowed.")
+
+    # Get the API Token
+    print(settings.hugging_face_api_token)
+    print(Path.cwd())
 
     # Handle summarizing
     if summarizeType == SummarizeTypes.Text:

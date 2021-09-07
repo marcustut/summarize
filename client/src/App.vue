@@ -8,7 +8,17 @@ import Viewer from "~/components/Viewer.vue";
 // they will be rendered correctly in the html results with vite-ssg
 useHead({
   title: "Summarize",
-  meta: [{ name: "description", content: "Summarize stuff through AI" }],
+  meta: [
+    {
+      name: "description",
+      content: "Summarize text through Artificial Intelligence",
+    },
+    { name: "url", content: "https://text-summarize.netlify.app" },
+    {
+      name: "image",
+      content: "https://i.ibb.co/rsZJhsK/pwa-512x512.png",
+    },
+  ],
 });
 </script>
 

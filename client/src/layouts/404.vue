@@ -1,23 +1,26 @@
 <script setup lang="ts">
-const router = useRouter()
-const { t } = useI18n()
+import { NLayout, NResult, NButton } from "naive-ui";
+
+const router = useRouter();
 </script>
 
 <template>
-  <main class="px-4 py-10 text-center text-teal-700 dark:text-gray-200">
-    <div>
-      <p class="text-4xl">
-        <carbon-warning class="inline-block" />
-      </p>
-    </div>
-    <router-view />
-    <div>
-      <button
-        class="btn m-3 text-sm mt-8"
-        @click="router.back()"
-      >
-        {{ t('button.back') }}
-      </button>
-    </div>
-  </main>
+  <n-layout
+    style="
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <n-result
+      status="404"
+      title="404 Not Found"
+      description="Try going to another path."
+    >
+      <template #footer>
+        <n-button @click="router.back()">Go back</n-button>
+      </template>
+    </n-result>
+  </n-layout>
 </template>

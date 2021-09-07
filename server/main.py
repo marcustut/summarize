@@ -25,6 +25,7 @@ async def summarize(
     method: str,
     url: Optional[str] = None,
     text: Optional[str] = None,
+    percentage: Optional[int] = 0.5,
     tag: Optional[str] = "p",
 ):
     # Handle type that is not allowed
@@ -46,7 +47,7 @@ async def summarize(
             raise HTTPException(status_code=404, detail="'text' cannot be empty.")
 
         try:
-            summary = handleSummarize(summarizeMethod, text)
+            summary = handleSummarize(summarizeMethod, text, percentage / 100)
             return {"summary": summary, "length": len(summary.split(" "))}
 
         except SummarizeMethodNotSupported as err:
@@ -60,7 +61,7 @@ async def summarize(
         content = parser.parse_html_to_paragraphs(url, [tag])
 
         try:
-            summary = handleSummarize(summarizeMethod, content)
+            summary = handleSummarize(summarizeMethod, content, percentage / 100)
             return {"summary": summary, "length": len(summary.split(" "))}
 
         except SummarizeMethodNotSupported as err:

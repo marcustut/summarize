@@ -38,6 +38,7 @@ const url = ref("");
 const percentage = ref(50);
 const requestUrl = ref("");
 
+const isNotNaive = computed(() => method.value !== "naive");
 const wordCount = computed(() => wordCounter(text.value));
 const charCount = computed(() => text.value.length);
 
@@ -72,8 +73,10 @@ const handleSummarize = () => {
 
   requestUrl.value =
     type.value === "text"
-      ? `${BASE_URL}/${type.value}/${method.value}?text=${text.value}`
-      : `${BASE_URL}/${type.value}/${method.value}?url=${encodeURI(url.value)}`;
+      ? `${BASE_URL}/${type.value}/${method.value}?text=${text.value}&percentage=${percentage.value}`
+      : `${BASE_URL}/${type.value}/${method.value}?url=${encodeURI(
+          url.value
+        )}&percentage=${percentage.value}`;
 
   execute();
 };
@@ -135,7 +138,7 @@ const { t } = useI18n();
           </n-tab-pane>
         </n-tabs>
 
-        <n-slider v-model:value="percentage" :step="1" />
+        <n-slider v-show="isNotNaive" v-model:value="percentage" :step="1" />
 
         <n-select
           v-model:value="method"

@@ -6,9 +6,9 @@ import re
 from nltk import word_tokenize
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
-from typing import List
 from string import punctuation
 from summarize.ai.helper import contractions_dict
+from summarize.utilities import capitalise_propn
 
 stop_words = set(stopwords.words("english"))
 punctuation = punctuation + "\n" + "—" + "“" + "," + "”" + "‘" + "-" + "’"
@@ -222,8 +222,6 @@ def cleanhtml(raw_html):
 
 
 # Function expand the contractions if there's any
-
-
 def expand_contractions(s, contractions_dict=contractions_dict):
     def replace(match):
         return contractions_dict[match.group(0)]
@@ -232,8 +230,6 @@ def expand_contractions(s, contractions_dict=contractions_dict):
 
 
 # Function to preprocess the articles
-
-
 def preprocessing(article):
     global article_sent
 
@@ -291,8 +287,6 @@ def preprocessing(article):
 
 
 # Function to normalize the word frequency which is used in the function word_frequency
-
-
 def normalize(li_word):
     global normalized_freq
     normalized_freq = []
@@ -305,8 +299,6 @@ def normalize(li_word):
 
 
 # Function to calculate the word frequency
-
-
 def word_frequency(article_word):
     word_frequency = {}
     li_word = []
@@ -323,8 +315,6 @@ def word_frequency(article_word):
 
 
 # Function to Score the sentence which is called in the function sent_token
-
-
 def sentence_score(li):
     global sentence_score_list
     sentence_score = {}
@@ -343,8 +333,6 @@ def sentence_score(li):
 
 
 # Function to tokenize the sentence
-
-
 def sent_token(article_sent):
     sentence_list = []
     sent_token = []
@@ -361,8 +349,6 @@ def sent_token(article_sent):
 
 
 # Function which generates the summary of the articles (This uses the 20% of the sentences with the highest score)
-
-
 def summary(sentence_score_OwO, percentage):
     summary_list = []
     for summ in sentence_score_OwO:
@@ -373,8 +359,6 @@ def summary(sentence_score_OwO, percentage):
 
 
 # Functions to change the article string (if passed) to change it to generate a pandas series
-
-
 def make_series(art):
     global dataframe
     data_dict = {"article": [art]}
@@ -382,9 +366,12 @@ def make_series(art):
     return dataframe
 
 
+# Post process the text to do POS tagging and capitalize proper nouns
+def postprocessing(summary: str) -> str:
+    return capitalise_propn(summary)
+
+
 # Function which is to be called to generate the summary which in further calls other functions alltogether
-
-
 def summarize(artefact, percentage=0.05):
 
     if type(artefact) != pd.Series:
@@ -398,4 +385,4 @@ def summarize(artefact, percentage=0.05):
 
     summarized_article = summary(sentence_score_OwO, percentage)
 
-    return summarized_article[0]
+    return postprocessing(summarized_article[0])

@@ -2,15 +2,18 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from typing import List
+from summarize.utilities import capitalise_propn
 
 
 def summarize(text: str) -> str:
+
     # Tokenize the text by sentences
     sentences = nltk.sent_tokenize(text)
 
     # Calculate the scores of each sentence
     sentence_scores = _calculate_sentence_scores(
-        sentences, _create_dictionary_table(text))
+        sentences, _create_dictionary_table(text)
+    )
 
     # Get the average score
     average_scores = _calculate_average_score(sentence_scores)
@@ -58,14 +61,13 @@ def _calculate_sentence_scores(sentences: List[str], frequency_table: dict) -> d
             if word_weight in sentence.lower():
                 sentence_wordcount_without_stop_words += 1
                 if sentence[:7] in sentence_weight:
-                    sentence_weight[sentence[:7]
-                                    ] += frequency_table[word_weight]
+                    sentence_weight[sentence[:7]] += frequency_table[word_weight]
                 else:
-                    sentence_weight[sentence[:7]
-                                    ] = frequency_table[word_weight]
+                    sentence_weight[sentence[:7]] = frequency_table[word_weight]
 
-        sentence_weight[sentence[:7]] = sentence_weight[sentence[:7]
-                                                        ] / sentence_wordcount_without_stop_words
+        sentence_weight[sentence[:7]] = (
+            sentence_weight[sentence[:7]] / sentence_wordcount_without_stop_words
+        )
 
     return sentence_weight
 
@@ -78,18 +80,23 @@ def _calculate_average_score(sentence_weight: dict) -> int:
         sum_values += sentence_weight[entry]
 
     # Getting sentence average value from source text
-    average_score = (sum_values / len(sentence_weight))
+    average_score = sum_values / len(sentence_weight)
 
     return average_score
 
 
-def _get_article_summary(sentences: List[str], sentence_weight: dict, threshold: int) -> str:
+def _get_article_summary(
+    sentences: List[str], sentence_weight: dict, threshold: int
+) -> str:
+
     sentence_counter = 0
-    article_summary = ''
+    article_summary = ""
 
     for sentence in sentences:
-        if sentence[:7] in sentence_weight and sentence_weight[sentence[:7]] >= (threshold):
+        if sentence[:7] in sentence_weight and sentence_weight[sentence[:7]] >= (
+            threshold
+        ):
             article_summary += " " + sentence
             sentence_counter += 1
 
-    return article_summary
+    return capitalise_propn(article_summary)

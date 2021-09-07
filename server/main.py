@@ -1,12 +1,24 @@
+from os import environ
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from functools import lru_cache
 from typing import Optional
 
+from fastapi.params import Depends
 from summarize.scraper import parser
+
 from model.summarize import SummarizeTypes, SummarizeMethods
 from internal.logic import SummarizeMethodNotSupported, handleSummarize
+from internal.config import Settings
 
 app = FastAPI()
+
+
+@lru_cache()
+def get_settings():
+    return Settings(_env_file="./.env")
+
 
 origins = ["http://localhost:3333"]
 
@@ -25,7 +37,9 @@ async def summarize(
     method: str,
     url: Optional[str] = None,
     text: Optional[str] = None,
+    percentage: Optional[int] = 0.5,
     tag: Optional[str] = "p",
+    settings: Settings = Depends(get_settings),
 ):
     # Handle type that is not allowed
     try:
@@ -46,8 +60,16 @@ async def summarize(
             raise HTTPException(status_code=404, detail="'text' cannot be empty.")
 
         try:
-            summary = handleSummarize(summarizeMethod, text)
-            return {"summary": summary, "length": len(summary.split(" "))}
+            summary = handleSummarize(
+                summarizeMethod,
+                text,
+                percentage / 100,
+                api_token=settings.hugging_face_api_token,
+            )
+            return {
+                "summary": summary,
+                "length": len(summary.split(" ")) if isinstance(summary, str) else 0,
+            }
 
         except SummarizeMethodNotSupported as err:
             raise HTTPException(status_code=404, detail=err)
@@ -60,8 +82,16 @@ async def summarize(
         content = parser.parse_html_to_paragraphs(url, [tag])
 
         try:
-            summary = handleSummarize(summarizeMethod, content)
-            return {"summary": summary, "length": len(summary.split(" "))}
+            summary = handleSummarize(
+                summarizeMethod,
+                content,
+                percentage / 100,
+                api_token=settings.hugging_face_api_token,
+            )
+            return {
+                "summary": summary,
+                "length": len(summary.split(" ")) if isinstance(summary, str) else 0,
+            }
 
         except SummarizeMethodNotSupported as err:
             raise HTTPException(status_code=404, detail=err)

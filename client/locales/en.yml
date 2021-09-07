@@ -8,5 +8,12 @@ button:
 intro:
   desc: A summarization tool for your everyday's reading needs
 home:
-  enter_text_here: Enter text here
-not_found: Not found
+  text: Text
+  url: Url
+  enter-text-here: Enter text here
+  enter-url-here: Enter url here
+  choose-a-method: Choose a method
+  word-count: Word Count
+  character-count: Character Count
+  summary: Summary
+not-found: Not found

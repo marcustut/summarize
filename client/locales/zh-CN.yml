@@ -8,5 +8,12 @@ button:
 intro:
   desc: 日常使用的文字总结工具
 home:
-  enter_text_here: 输入文字
-not_found: 未找到页面
+  text: 文字
+  url: 网址
+  enter-text-here: 输入文字
+  enter-url-here: 输入网址
+  choose-a-method: 选择策略
+  word-count: 字数
+  character-count: 字符数
+  summary: 总结
+not-found: 未找到页面

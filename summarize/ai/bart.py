@@ -1,20 +1,24 @@
-from transformers import pipeline, Pipeline
-from summarize.ai.summarizer import Summarizer
-from summarize.scraper import parser
+import json
+from typing import Optional
+
+from .helper import hf_inference_request
 
 
-class Bart(Summarizer):
-    def __init__(self):
-        super().__init__(500)
+def summarize(
+    text: str,
+    api_token: str,
+    min_length: Optional[int] = 0,
+    max_length: Optional[int] = 100,
+) -> str:
+    response = hf_inference_request(
+        text,
+        "facebook/bart-large-cnn",
+        api_token=api_token,
+        min_length=min_length,
+        max_length=max_length,
+    )
 
-    # Overrides abstract method
-    def create_model(self) -> Pipeline:
-        summarizer = pipeline("summarization")
-        return summarizer
+    if not isinstance(response, list):
+        return json.dumps(response)
 
-    # The content variable should be chunked
-    def summarize(self, content: str, min_length: int, max_length: int) -> str:
-        # Load BART model using pipeline
-        text = parser.chunk_text(content, self.max_chunk)
-        summarizer = self.create_model()
-        return super().summarize(summarizer, text, min_length, max_length)
+    return response[0]["summary_text"]

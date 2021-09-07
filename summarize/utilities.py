@@ -1,4 +1,5 @@
 from typing import List
+from pathlib import Path
 import stanfordnlp as stfnlp
 
 # Used by models using HuggingFace pipeline functions to
@@ -23,6 +24,10 @@ def capitalise_propn(summary: str) -> str:
 
 
 # INTERNAL FUNCTIONS FOR capitalise_propn ONLY, START --------------------------
+def _check_have_model():
+    return Path.home().joinpath("stanfordnlp_resources").exists()
+
+
 def _load_stf_model():
     stfnlp.download("en")
 
@@ -37,7 +42,8 @@ def _tag_pos(stf_nlp: stfnlp.Pipeline, summary: str) -> stfnlp.Document:
 
 # Preprocesses input summary with POS tagging
 def _analyse_summary(summary: str) -> stfnlp.Document:
-    _load_stf_model()
+    if not _check_have_model():
+        _load_stf_model()
     stf_nlp = _create_pipeline_pos()
     return _tag_pos(stf_nlp, summary)
 

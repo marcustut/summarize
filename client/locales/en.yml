@@ -8,5 +8,5 @@ button:
 intro:
   desc: A summarization tool for your everyday's reading needs
 home:
-  enter-text-here: Enter text here
-not-found: Not found
+  enter_text_here: Enter text here
+not_found: Not found

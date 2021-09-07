@@ -8,5 +8,5 @@ button:
 intro:
   desc: 日常使用的文字总结工具
 home:
-  enter-text-here: 输入文字
-not-found: 未找到页面
+  enter_text_here: 输入文字
+not_found: 未找到页面

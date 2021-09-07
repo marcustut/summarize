@@ -55,8 +55,8 @@ const { t } = useI18n();
     <textarea
       id="input"
       v-model="text"
-      :placeholder="t('home.enter-text-here')"
-      :aria-label="t('home.enter-text-here')"
+      :placeholder="t('home.enter_text_here')"
+      :aria-label="t('home.enter_text_here')"
       type="text"
       autocomplete="false"
       @keydown.enter="handleSummarize"
@@ -69,7 +69,7 @@ const { t } = useI18n();
       border="~ rounded gray-200 dark:gray-700"
       outline="none active:none"
     />
-    <label class="hidden" for="input">{{ t("home.enter-text-here") }}</label>
+    <label class="hidden" for="input">{{ t("home.enter_text_here") }}</label>
 
     <select
       name="method"

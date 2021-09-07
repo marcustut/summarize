@@ -36,6 +36,7 @@ const toggleLocales = () => {
       class="icon-btn mx-2"
       :title="t('button.toggle_langs')"
       @click="toggleLocales"
+      cursor="pointer"
     >
       <carbon-language />
     </a>

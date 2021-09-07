@@ -1,24 +1,24 @@
-from transformers import pipeline, Pipeline
-from summarize.ai.summarizer import Summarizer
-from summarize.scraper import parser
-from summarize.utilities import capitalise_propn
+import json
+from typing import Optional
+
+from .helper import hf_inference_request
 
 
-class T5(Summarizer):
-    def __init__(self):
-        super().__init__(500)
+def summarize(
+    text: str,
+    api_token: str,
+    min_length: Optional[int] = 0,
+    max_length: Optional[int] = 100,
+) -> str:
+    response = hf_inference_request(
+        text,
+        "t5-base",
+        api_token=api_token,
+        min_length=min_length,
+        max_length=max_length,
+    )
 
-    # Overrides abstract method
-    def create_model(self) -> Pipeline:
-        summarizer = pipeline(
-            "summarization", model="t5-base", tokenizer="t5-base", framework="pt"
-        )
-        return summarizer
+    if not isinstance(response, list):
+        return json.dumps(response)
 
-    # The content variable should be chunked
-    def summarize(self, content: str, min_length: int, max_length: int) -> str:
-        # Load T5 model using pipeline
-        text = parser.chunk_text(content, self.max_chunk)
-        summarizer = self.create_model()
-        summary = super().summarize(summarizer, text, min_length, max_length)
-        return capitalise_propn(summary)
+    return response[0]["summary_text"]

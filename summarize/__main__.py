@@ -2,11 +2,7 @@ import sys
 import re
 import argparse
 
-from summarize.ai import textrank
-from summarize.ai import naive
-from summarize.ai.bart import Bart
-from summarize.ai.pegasus import Pegasus
-from summarize.ai.t5 import T5
+from summarize.ai import textrank, naive, bart
 from summarize.scraper import parser
 from typing import List
 
@@ -54,15 +50,18 @@ def summarize_url(
         summary = naive.summarize(content)
     elif method == "textrank":
         summary = textrank.summarize(content, 0.05)
-    elif method == "bart":
-        bart = Bart()
-        summary = bart.summarize(content, min_length, max_length)
-    elif method == "pegasus":
-        pegasus = Pegasus()
-        summary = pegasus.summarize(content, min_length, max_length)
-    elif method == "t5":
-        t5 = T5()
-        summary = t5.summarize(content, min_length, max_length)
+    # elif method == "bart":
+    #     summary = bart.summarize(
+    #         content,
+    #         min_length=min_length,
+    #         max_length=max_length,
+    #     )
+    # elif method == "pegasus":
+    #     pegasus = Pegasus()
+    #     summary = pegasus.summarize(content, min_length, max_length)
+    # elif method == "t5":
+    #     t5 = T5()
+    #     summary = t5.summarize(content, min_length, max_length)
 
     # Print the summary to stdout
     print(summary)

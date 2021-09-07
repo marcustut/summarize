@@ -26,9 +26,9 @@ const BASE_URL = "http://127.0.0.1:8000/summarize";
 const METHODS = [
   { label: "Naive", value: "naive" },
   { label: "Textrank", value: "textrank" },
-  { label: "BART", value: "bart", disabled: true },
-  { label: "T5", value: "t5", disabled: true },
-  { label: "Pegasus", value: "pegasus", disabled: true },
+  { label: "BART", value: "bart" },
+  { label: "T5", value: "t5" },
+  { label: "Pegasus", value: "pegasus" },
 ] as SelectOption[];
 
 const method = ref<SummarizeMethod | null>(null);

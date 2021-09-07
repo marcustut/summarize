@@ -53,10 +53,6 @@ async def summarize(
     except ValueError:
         raise HTTPException(status_code=404, detail=f"Method {method} is not allowed.")
 
-    # Get the API Token
-    print(settings.hugging_face_api_token)
-    print(Path.cwd())
-
     # Handle summarizing
     if summarizeType == SummarizeTypes.Text:
 
@@ -64,8 +60,16 @@ async def summarize(
             raise HTTPException(status_code=404, detail="'text' cannot be empty.")
 
         try:
-            summary = handleSummarize(summarizeMethod, text, percentage / 100)
-            return {"summary": summary, "length": len(summary.split(" "))}
+            summary = handleSummarize(
+                summarizeMethod,
+                text,
+                percentage / 100,
+                api_token=settings.hugging_face_api_token,
+            )
+            return {
+                "summary": summary,
+                "length": len(summary.split(" ")) if isinstance(summary, str) else 0,
+            }
 
         except SummarizeMethodNotSupported as err:
             raise HTTPException(status_code=404, detail=err)
@@ -78,8 +82,16 @@ async def summarize(
         content = parser.parse_html_to_paragraphs(url, [tag])
 
         try:
-            summary = handleSummarize(summarizeMethod, content, percentage / 100)
-            return {"summary": summary, "length": len(summary.split(" "))}
+            summary = handleSummarize(
+                summarizeMethod,
+                content,
+                percentage / 100,
+                api_token=settings.hugging_face_api_token,
+            )
+            return {
+                "summary": summary,
+                "length": len(summary.split(" ")) if isinstance(summary, str) else 0,
+            }
 
         except SummarizeMethodNotSupported as err:
             raise HTTPException(status_code=404, detail=err)

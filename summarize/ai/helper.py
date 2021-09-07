@@ -1,4 +1,10 @@
 # A list of contractions from http://stackoverflow.com/questions/19790188/expanding-english-language-contractions-in-python
+import json
+from typing import Optional
+
+import requests
+
+
 contractions_dict = {
     "ain't": "am not",
     "aren't": "are not",
@@ -72,5 +78,28 @@ contractions_dict = {
     "wouldn't": "would not",
     "you'd": "you would",
     "you'll": "you will",
-    "you're": "you are"
+    "you're": "you are",
 }
+
+
+# Send a request to HuggingFace's Accelerated Inference API
+def hf_inference_request(
+    input: str,
+    model: str,
+    api_token: str,
+    min_length: Optional[int] = 0,
+    max_length: Optional[int] = 100,
+):
+    headers = {"Authorization": f"Bearer {api_token}"}
+    API_URL = f"https://api-inference.huggingface.co/models/{model}"
+
+    data = json.dumps(
+        {
+            "inputs": input,
+            "parameters": {"min_length": min_length, "max_length": max_length},
+        }
+    )
+
+    response = requests.request("POST", API_URL, headers=headers, data=data)
+
+    return json.loads(response.content.decode("utf-8"))

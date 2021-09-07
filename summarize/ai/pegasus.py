@@ -1,29 +1,24 @@
-from transformers import (
-    PegasusForConditionalGeneration,
-    PegasusTokenizer,
-    pipeline,
-    Pipeline,
-)
-from summarize.ai.summarizer import Summarizer
-from summarize.scraper import parser
+import json
+from typing import Optional
+
+from .helper import hf_inference_request
 
 
-class Pegasus(Summarizer):
-    def __init__(self):
-        super().__init__(250)
+def summarize(
+    text: str,
+    api_token: str,
+    min_length: Optional[int] = 0,
+    max_length: Optional[int] = 100,
+) -> str:
+    response = hf_inference_request(
+        text,
+        "google/pegasus-xsum",
+        api_token=api_token,
+        min_length=min_length,
+        max_length=max_length,
+    )
 
-    # Overrides abstract method
-    def create_model(self) -> Pipeline:
-        model_name = "google/pegasus-xsum"
-        # torch_device = "cuda"
-        tokenizer = PegasusTokenizer.from_pretrained(model_name)
-        model = PegasusForConditionalGeneration.from_pretrained(model_name)
-        summarizer = pipeline("summarization", model=model, tokenizer=tokenizer)
-        return summarizer
+    if not isinstance(response, list):
+        return json.dumps(response)
 
-    # The content variable should be parsed into paragraphs
-    def summarize(self, content: str, min_length: int, max_length: int) -> str:
-        # Load pegasus model using pipeline
-        text = parser.chunk_text(content, self.max_chunk)
-        summarizer = self.create_model()
-        return super().summarize(summarizer, text, min_length, max_length)
+    return response[0]["summary_text"]

@@ -2,6 +2,7 @@
 import {
   NP,
   NH2,
+  NSpin,
   NCard,
   NSpace,
   NTabs,
@@ -13,6 +14,7 @@ import {
   NStatistic,
   useThemeVars,
   useMessage,
+  useNotification,
 } from "naive-ui";
 import { SERVER_URL, wordCounter } from "~/logic";
 import type { SelectOption } from "naive-ui";
@@ -38,6 +40,7 @@ const text = ref("");
 const url = ref("");
 const percentage = ref(50);
 const requestUrl = ref("");
+const ready = ref(false);
 
 const isNotNaive = computed(() => method.value !== "naive");
 const wordCount = computed(() => wordCounter(text.value));
@@ -45,6 +48,7 @@ const charCount = computed(() => text.value.length);
 
 const naiveTheme = useThemeVars();
 const message = useMessage();
+const notification = useNotification();
 
 const { isFetching, execute, error, data, onFetchError, onFetchResponse } =
   useFetch<SummarizeResponse>(requestUrl, {
@@ -55,6 +59,33 @@ const { isFetching, execute, error, data, onFetchError, onFetchResponse } =
 
 onFetchError(() => message.error(error.value));
 onFetchResponse(() => message.success("Your text is summarized"));
+
+onMounted(() => {
+  fetch(SERVER_URL)
+    .then(() => (ready.value = true))
+    .catch(() => {
+      const n = notification.error({
+        title: "Opps, there's been an error",
+        content: "The server is currently offline",
+        meta: Date.now().toString(),
+        action: () =>
+          h(
+            NButton,
+            {
+              text: true,
+              type: "primary",
+              onClick: () => {
+                ready.value = true;
+                n.destroy();
+              },
+            },
+            {
+              default: () => "Continue anyway",
+            }
+          ),
+      });
+    });
+});
 
 const handleSummarize = () => {
   if (type.value === "text" && text.value.length < 10) {
@@ -90,7 +121,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div w="full" max-w="4/5 lg:800px">
+  <div w="full">
     <p class="text-4xl">
       <carbon-document class="inline-block" />
     </p>
@@ -109,64 +140,66 @@ const { t } = useI18n();
 
     <div class="py-4" />
 
-    <n-card>
-      <n-space vertical :size="16">
-        <n-tabs
-          default-value="text"
-          justify-content="space-evenly"
-          type="line"
-          :on-update:value="(newType) => setType(newType)"
-        >
-          <n-tab-pane name="text" :tab="t('home.text')">
-            <n-input
-              h="200px"
-              type="textarea"
-              :placeholder="t('home.enter-text-here')"
-              :aria-label="t('home.enter-text-here')"
-              :value="text"
-              :on-update:value="(newText) => setText(newText)"
-              clearable
-            />
-          </n-tab-pane>
-          <n-tab-pane name="url" :tab="t('home.url')">
-            <n-input
-              type="text"
-              :placeholder="t('home.enter-url-here')"
-              :aria-label="t('home.enter-url-here')"
-              :value="url"
-              :on-update:value="(newUrl) => setUrl(newUrl)"
-            />
-          </n-tab-pane>
-        </n-tabs>
+    <n-spin :show="!ready">
+      <n-card>
+        <n-space vertical :size="16">
+          <n-tabs
+            default-value="text"
+            justify-content="space-evenly"
+            type="line"
+            :on-update:value="(newType) => setType(newType)"
+          >
+            <n-tab-pane name="text" :tab="t('home.text')">
+              <n-input
+                h="200px"
+                type="textarea"
+                :placeholder="t('home.enter-text-here')"
+                :aria-label="t('home.enter-text-here')"
+                :value="text"
+                :on-update:value="(newText) => setText(newText)"
+                clearable
+              />
+            </n-tab-pane>
+            <n-tab-pane name="url" :tab="t('home.url')">
+              <n-input
+                type="text"
+                :placeholder="t('home.enter-url-here')"
+                :aria-label="t('home.enter-url-here')"
+                :value="url"
+                :on-update:value="(newUrl) => setUrl(newUrl)"
+              />
+            </n-tab-pane>
+          </n-tabs>
 
-        <n-slider v-show="isNotNaive" v-model:value="percentage" :step="1" />
+          <n-slider v-show="isNotNaive" v-model:value="percentage" :step="1" />
 
-        <n-select
-          v-model:value="method"
-          filterable
-          :placeholder="t('home.choose-a-method')"
-          :options="METHODS"
-        />
+          <n-select
+            v-model:value="method"
+            filterable
+            :placeholder="t('home.choose-a-method')"
+            :options="METHODS"
+          />
 
-        <n-button
-          w="full"
-          :color="naiveTheme.primaryColor"
-          :loading="isFetching"
-          @click="handleSummarize"
-        >
-          {{ t("button.summarize") }}
-        </n-button>
+          <n-button
+            w="full"
+            :color="naiveTheme.primaryColor"
+            :loading="isFetching"
+            @click="handleSummarize"
+          >
+            {{ t("button.summarize") }}
+          </n-button>
+        </n-space>
+      </n-card>
+
+      <n-space justify="center" v-show="type === 'text'">
+        <n-statistic m="t-4" text="center" :label="t('home.word-count')">
+          {{ wordCount }}
+        </n-statistic>
+        <n-statistic m="t-4" text="center" :label="t('home.character-count')">
+          {{ charCount }}
+        </n-statistic>
       </n-space>
-    </n-card>
-
-    <n-space justify="center" v-show="type === 'text'">
-      <n-statistic m="t-4" text="center" :label="t('home.word-count')">
-        {{ wordCount }}
-      </n-statistic>
-      <n-statistic m="t-4" text="center" :label="t('home.character-count')">
-        {{ charCount }}
-      </n-statistic>
-    </n-space>
+    </n-spin>
 
     <n-card m="t-4" v-show="data">
       <n-h2>{{ t("home.summary") }}</n-h2>

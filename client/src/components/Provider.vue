@@ -27,9 +27,9 @@ debouncedWatch(osTheme, () => themeStore.setTheme(osTheme.value), {
   <n-config-provider :theme="currentTheme">
     <n-loading-bar-provider>
       <n-message-provider>
-        <NNotificationProvider>
+        <n-notification-provider>
           <slot />
-        </NNotificationProvider>
+        </n-notification-provider>
       </n-message-provider>
     </n-loading-bar-provider>
   </n-config-provider>

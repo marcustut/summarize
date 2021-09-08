@@ -11,7 +11,7 @@ import { NLayout, NLayoutFooter } from "naive-ui";
       min-h="[100vh]"
       p="y-24"
     >
-      <router-view pb="24" />
+      <router-view pb="24" max-w="4/5 lg:800px" />
       <n-layout-footer
         bordered
         position="absolute"

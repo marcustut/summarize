@@ -10,10 +10,13 @@ intro:
 home:
   text: Text
   url: Url
+  pdf: Pdf
   enter-text-here: Enter text here
   enter-url-here: Enter url here
   choose-a-method: Choose a method
   word-count: Word Count
   character-count: Character Count
+  upload-title: Click or drag file to this area to upload
+  upload-description: Only PDF files are accepted
   summary: Summary
 not-found: Not found

@@ -9,7 +9,7 @@ import { NLayout, NLayoutFooter } from "naive-ui";
       justify="center"
       align="items-center"
       min-h="[100vh]"
-      p="y-24"
+      p="y-12"
     >
       <router-view pb="24" max-w="4/5 lg:800px" />
       <n-layout-footer

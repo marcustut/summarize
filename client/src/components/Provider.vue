@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {
   NConfigProvider,
-  NLoadingBarProvider,
+  NDialogProvider,
   NMessageProvider,
+  NLoadingBarProvider,
   NNotificationProvider,
   useOsTheme,
   darkTheme,
@@ -26,11 +27,13 @@ debouncedWatch(osTheme, () => themeStore.setTheme(osTheme.value), {
 <template>
   <n-config-provider :theme="currentTheme">
     <n-loading-bar-provider>
-      <n-message-provider>
-        <n-notification-provider>
-          <slot />
-        </n-notification-provider>
-      </n-message-provider>
+      <n-dialog-provider>
+        <n-message-provider>
+          <n-notification-provider>
+            <slot />
+          </n-notification-provider>
+        </n-message-provider>
+      </n-dialog-provider>
     </n-loading-bar-provider>
   </n-config-provider>
 </template>

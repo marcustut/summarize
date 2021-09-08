@@ -6,11 +6,13 @@ specifiers:
   '@intlify/vite-plugin-vue-i18n': ^2.4.0
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/nprogress': ^0.2.0
+  '@types/pdfjs-dist': ^2.7.4
   '@vitejs/plugin-vue': ^1.6.0
   '@vue/compiler-sfc': ^3.2.6
   '@vue/server-renderer': ^3.2.6
   '@vueuse/core': ^6.0.0
   '@vueuse/head': ^0.6.0
+  countable: ^3.0.1
   critters: ^0.0.10
   cross-env: ^7.0.3
   eslint: ^7.32.0
@@ -18,6 +20,7 @@ specifiers:
   markdown-it-link-attributes: ^3.0.0
   markdown-it-prism: ^2.2.0
   naive-ui: ^2.17.2
+  pdfjs-dist: ^2.9.359
   pinia: ^2.0.0-rc.8
   pnpm: ^6.14.5
   prism-theme-vars: ^0.2.2
@@ -42,6 +45,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 6.0.0_vue@3.2.6
   '@vueuse/head': 0.6.0_vue@3.2.6
+  pdfjs-dist: 2.9.359
   pinia: 2.0.0-rc.8_typescript@4.4.2+vue@3.2.6
   prism-theme-vars: 0.2.2
   vue: 3.2.6
@@ -55,9 +59,11 @@ devDependencies:
   '@intlify/vite-plugin-vue-i18n': 2.4.0_c492082eb9facedb3ae01550d308af38
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/nprogress': 0.2.0
+  '@types/pdfjs-dist': 2.7.4
   '@vitejs/plugin-vue': 1.6.0_@vue+compiler-sfc@3.2.6
   '@vue/compiler-sfc': 3.2.6
   '@vue/server-renderer': 3.2.6_vue@3.2.6
+  countable: 3.0.1
   critters: 0.0.10
   cross-env: 7.0.3
   eslint: 7.32.0
@@ -1660,6 +1666,10 @@ packages:
     resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
+  /@types/pdfjs-dist/2.7.4:
+    resolution: {integrity: sha512-X4CpJgsDr44/xq/SK8NukTV2uyRAMz9dXAVHMUtJrBPtpf4CYnbQevmD95G9fbNwsjJNItOlgsS+yECrBJLUHw==}
+    dev: true
+
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
@@ -2551,6 +2561,10 @@ packages:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
+    dev: true
+
+  /countable/3.0.1:
+    resolution: {integrity: sha512-dz/sdi+RFpHJKMen5RAB9EKpCKd/q5WMfxG3SbdbQ3Pak4+SEPmDhVWZF0GTTHwjqjR+7DmiZHzZiFJ4qeAzmg==}
     dev: true
 
   /critters/0.0.10:
@@ -4829,6 +4843,12 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /pdfjs-dist/2.9.359:
+    resolution: {integrity: sha512-P2nYtkacdlZaNNwrBLw1ZyMm0oE2yY/5S/GDCAmMJ7U4+ciL/D0mrlEC/o4HZZc/LNE3w8lEVzBEyVgEQlPVKQ==}
+    peerDependencies:
+      worker-loader: ^3.0.7
+    dev: false
 
   /picomatch/2.3.0:
     resolution: {integrity: sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==}

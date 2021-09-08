@@ -20,7 +20,7 @@ def get_settings():
     return Settings(_env_file="./.env")
 
 
-origins = ["http://localhost:3333"]
+origins = ["http://localhost:3333", "https://text-summarize.netlify.app"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +29,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 
 @app.get("/summarize/{type}/{method}")

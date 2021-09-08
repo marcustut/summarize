@@ -8,6 +8,9 @@ title: About
   <h3>About</h3>
 </div>
 
+<br/>
+<br/>
+
 **Summarize** is a simple yet amazing tool for your everyday reading needs!
 
 This tool utilises five algorithms: [Naive](https://github.com/marcustut/summarize/blob/main/notebooks/naive.ipynb), [TextRank](https://github.com/marcustut/summarize/blob/main/notebooks/textrank.ipynb), [BART](https://github.com/marcustut/summarize/blob/main/notebooks/BART.ipynb), [T5](https://github.com/marcustut/summarize/blob/main/notebooks/T5.ipynb) and [Pegasus](https://github.com/marcustut/summarize/blob/main/notebooks/pegasus.ipynb). Feel free to click on them to understand the workings under the hood!

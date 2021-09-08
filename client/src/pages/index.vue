@@ -22,7 +22,8 @@ import type {
   SummarizeType,
 } from "~/types";
 
-const BASE_URL = "http://127.0.0.1:8000/summarize";
+const BASE_URL =
+  "http://ec2-54-254-149-119.ap-southeast-1.compute.amazonaws.com:8080/summarize";
 const METHODS = [
   { label: "Naive", value: "naive" },
   { label: "Textrank", value: "textrank" },

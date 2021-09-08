@@ -67,7 +67,7 @@ onMounted(() => {
       const n = notification.error({
         title: "Opps, there's been an error",
         content: "The server is currently offline",
-        meta: Date.now().toString(),
+        meta: new Date().toLocaleString(),
         action: () =>
           h(
             NButton,

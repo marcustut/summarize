@@ -82,6 +82,12 @@ contractions_dict = {
 }
 
 
+# Chunk size for each model
+T5_MAX_CHUNK = 500
+BART_MAX_CHUNK = 500
+PEGASUS_MAX_CHUNK = 250
+
+
 # Send a request to HuggingFace's Accelerated Inference API
 def hf_inference_request(
     input: str,

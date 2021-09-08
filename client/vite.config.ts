@@ -99,8 +99,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt', 'safari-pinned-tab.svg'],
       manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
+        name: 'Summarize',
+        short_name: 'Summarize',
         theme_color: '#ffffff',
         icons: [
           {

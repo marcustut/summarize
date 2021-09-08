@@ -14,7 +14,7 @@ import {
   useThemeVars,
   useMessage,
 } from "naive-ui";
-import { wordCounter } from "~/logic";
+import { SERVER_URL, wordCounter } from "~/logic";
 import type { SelectOption } from "naive-ui";
 import type {
   SummarizeMethod,
@@ -22,8 +22,8 @@ import type {
   SummarizeType,
 } from "~/types";
 
-const BASE_URL =
-  "http://ec2-54-254-149-119.ap-southeast-1.compute.amazonaws.com:8080/summarize";
+const BASE_URL = `${SERVER_URL}/summarize`;
+
 const METHODS = [
   { label: "Naive", value: "naive" },
   { label: "Textrank", value: "textrank" },

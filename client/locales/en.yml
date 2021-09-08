@@ -6,7 +6,7 @@ button:
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
 intro:
-  desc: A summarization tool for your everyday's reading needs
+  desc: A summarization tool for your everyday reading needs
 home:
   text: Text
   url: Url

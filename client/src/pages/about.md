@@ -22,7 +22,7 @@ This tool is so easy to use that we believe you need no further prompts. Though,
 3. **Summarize** currently only supports English. (Fingers crossed: we are looking forward to implementing Malay and Chinese.)
 4. BART, T5 and Pegasus have limited usage because we are using a free-tier API. (We need to figure out how to cover our costs soon.)
 
-Now you're good to go. Just paste in your text or URL and click on the green button - voila! Enjoy your snippet.
+Now you're good to go. Just paste in your text, URL or PDF and click on the green button - voila! Enjoy your snippet.
 
 A guide to the algorithms:
 

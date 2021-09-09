@@ -10,13 +10,13 @@ intro:
 home:
   text: 文字
   url: 网址
-  pdf: PDF 文档
+  pdf: PDF文档
   enter-text-here: 输入文字
   enter-url-here: 输入网址
   choose-a-method: 选择策略
   word-count: 字数
   character-count: 字符数
   upload-title: 点击或者拖动文件到该区域来上传
-  upload-description: 仅支持 PDF 文档
+  upload-description: 仅支持PDF文档
   summary: 总结
 not-found: 未找到页面

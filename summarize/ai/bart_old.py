@@ -1,3 +1,5 @@
+# Author: Ling Li Ya
+
 from transformers import pipeline, Pipeline
 from summarize.ai.summarizer import Summarizer
 from summarize.scraper import parser

@@ -1,3 +1,5 @@
+# Author: Ling Li Ya
+
 from typing import List
 from pathlib import Path
 import stanfordnlp as stfnlp

@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 from summarize.ai import naive, textrank, bart, t5, pegasus
 from model.summarize import SummarizeMethods
 

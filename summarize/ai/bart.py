@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 import json
 from summarize.scraper import parser
 from typing import Optional

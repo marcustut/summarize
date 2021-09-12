@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 from enum import Enum
 
 

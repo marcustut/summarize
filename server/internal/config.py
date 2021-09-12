@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 from pydantic import BaseSettings
 
 

@@ -1,5 +1,5 @@
-from os import environ
-from pathlib import Path
+# Author: Lee Kai Yang
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from functools import lru_cache
@@ -20,7 +20,12 @@ def get_settings():
     return Settings(_env_file="./.env")
 
 
-origins = ["http://localhost:3333", "https://text-summarize.netlify.app", "https://summarize.marcustut.tech", "http://summarize.marcustut.tech"]
+origins = [
+    "http://localhost:3333",
+    "https://text-summarize.netlify.app",
+    "https://summarize.marcustut.tech",
+    "http://summarize.marcustut.tech",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +34,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 async def root():

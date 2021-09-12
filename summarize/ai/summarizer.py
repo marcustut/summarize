@@ -1,3 +1,5 @@
+# Author: Ling Li Ya
+
 from abc import ABC, abstractmethod
 from summarize.utilities import append
 from transformers import Pipeline

@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 # A list of contractions from http://stackoverflow.com/questions/19790188/expanding-english-language-contractions-in-python
 import json
 from typing import Optional

@@ -1,3 +1,5 @@
+# Author: Lee Kai Yang
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer

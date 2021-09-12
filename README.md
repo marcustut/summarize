@@ -14,6 +14,11 @@ Some things to note:
 
 To run the project locally, please refer to the guide below.
 
+### Setup Tutorial Video (Windows)
+https://user-images.githubusercontent.com/59773847/132978434-65cea520-7b96-42e1-bab9-e0e2bec3500d.mp4
+
+for the detailed steps in word, refer to sections below
+
 ### 1. Downloading the project
 
 Either download the `.zip` file in Google Classroom from our GitHub.

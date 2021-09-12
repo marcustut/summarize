@@ -90,8 +90,31 @@ Then return to your `Notepad` and run the command `pnpm i` in the `PowerShell` w
 
 ### 7. Run the frontend client
 
-Lastly, run this command in the `PowerShell` window to launch the application on `localhost:3333`
+Run this command in the `PowerShell` window to launch the application on `localhost:3333`
 ![image](https://user-images.githubusercontent.com/68136684/132977886-889c69e3-c053-456b-9b2a-74dc40ce38a1.png)
+
+You will see this:
+![image](https://user-images.githubusercontent.com/68136684/132978232-61c82e4c-2db3-4003-82c6-ac752037cbd3.png)
+
+### 8. Adding API token
+
+To use `BART`, `T5` and `Pegasus`, you need an API token. We will private message you an API token because it is not supposed to be public.
+
+<br/>
+
+At the `summarize-main` project root, right click on an empty space to add a new `.txt` named `.env`.
+![image](https://user-images.githubusercontent.com/68136684/132978170-56132f7c-289c-448e-98e1-00b787dd6fa7.png)
+
+Click on yes for this warning:
+![image](https://user-images.githubusercontent.com/68136684/132978185-39b9f140-a15e-4d81-8378-1ef65b879762.png)
+
+Open the `.env` file in `Notepad`. Type in `HUGGING_FACE_API_TOKEN_={your_api_token}`. It will look something like this:
+![image](https://user-images.githubusercontent.com/68136684/132978209-ff8b1d73-f5ba-4a02-b478-b585f5f0ad39.png)
+
+Save the file then refresh the `Summarize` web application page.
+![image](https://user-images.githubusercontent.com/68136684/132978234-0b9a256c-8440-4e70-8bb3-c40738db25ff.png)
+
+You will be able to use the models now.
 
 ## Code folders
 

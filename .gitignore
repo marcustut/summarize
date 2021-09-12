@@ -143,3 +143,5 @@ data/*
 
 # Model
 *.h5
+
+node_modules/

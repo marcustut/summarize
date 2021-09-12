@@ -6,6 +6,14 @@ This is a text summarizing tool written in Python.
 
 ## User Guide
 
+Some things to note:
+- The application is accessible [here](https://summarize.marcustut.tech/).
+- However, due to limited free-tier server resources, the application may crash, so it is advisable that you run this project locally.
+- You might not be able to run the abstractive models after reaching a character limit in HuggingFace Accelerated Inference API. Therefore, it is advisable that you use the [`Notebooks`](https://github.com/marcustut/summarize/tree/main/notebooks) for replicating our results in the documentation.
+- Note that you might not be able to run `Pegasus` on the notebook successfully due to the amount of resources required, so it is advisable that you run only the `Pegasus` model through the application interface.
+
+To run the project locally, please refer to the guide below.
+
 ### 1. Downloading the project
 
 Either download the `.zip` file in Google Classroom from our GitHub.
@@ -23,7 +31,7 @@ To check whether `Python` is installed:
 $ python
 ```
 
-You will see this is it is installed. Note that your version might be different.
+You will see this is it is installed. Note that your version might be different. <br/>
 ![image](https://user-images.githubusercontent.com/68136684/132977269-2f92a428-b66c-47e1-99e4-af40bef635bb.png)
 
 Type `exit()` to exit the `Python` shell if it is installed.
@@ -33,7 +41,7 @@ To check whether `Node.js` is installed:
 $ node
 ```
 
-You will see this is it is installed. Note that your version might be different.
+You will see this is it is installed. Note that your version might be different. <br/>
 ![image](https://user-images.githubusercontent.com/68136684/132977298-1be0494e-b965-45bc-acfd-2f6f6d5e3957.png)
 
 Otherwise, [download `Python`](https://www.python.org/downloads/) and/or [`Node.js`](https://nodejs.org/en/) here. Run the installer and follow its instructions. Verify your installation.
@@ -84,14 +92,6 @@ Then return to your `Notepad` and run the command `pnpm i` in the `PowerShell` w
 
 Lastly, run this command in the `PowerShell` window to launch the application on `localhost:3333`
 ![image](https://user-images.githubusercontent.com/68136684/132977886-889c69e3-c053-456b-9b2a-74dc40ce38a1.png)
-
-- The application is accessible [here](https://summarize.marcustut.tech/)
-- However, due to limited free-tier server resources, the application may crash
-- So it is advisable that you clone this project to your desktop and run the commands in the [`Makefile`](https://github.com/marcustut/summarize/blob/main/Makefile)
-- You might not be able to run the abstractive models after reaching a character limit in HuggingFace Accelerated Inference API
-- Therefore, it is advisable that you use the [`Notebooks`](https://github.com/marcustut/summarize/tree/main/notebooks) for replicating our results in the documentation
-- Note that you might not be able to run `Pegasus` on the notebook successfully due to the amount of resources required
-- So it is advisable that you run only the `Pegasus` model through the application interface
 
 ## Code folders
 
